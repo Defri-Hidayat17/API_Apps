@@ -1,16 +1,20 @@
-# daftar_produk_api
+# API_Apps
 
-A new Flutter project.
+Aplikasi mobile berbasis Flutter yang mampu menampilkan data produk dari API publik:  
+👉 https://api.escuelajs.co/api/v1/products
+
+---
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Ini adalah proyek Flutter sebagai latihan menampilkan data dari API publik.
 
-A few resources to get you started if this is your first Flutter project:
+Beberapa referensi berguna untuk belajar Flutter:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [💡 Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [🍳 Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [📚 Dokumentasi Lengkap Flutter](https://docs.flutter.dev/)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+> Dibuat dengan ❤️ oleh Defri
