@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../models/product.dart';
+import '../providers/cart_provider.dart';
+import '../views/cart_page.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final Product product;
@@ -14,7 +16,6 @@ class ProductDetailScreen extends StatelessWidget {
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            // 🟩 Latar belakang gradasi
             Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
@@ -35,68 +36,86 @@ class ProductDetailScreen extends StatelessWidget {
                 ],
               ),
             ),
-
             AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
               centerTitle: true,
-              // ⬅️ ini biar tombol back (ikon panah kiri) jadi putih
               iconTheme: const IconThemeData(color: Colors.white),
-              title: Text(
+              title: const Text(
                 'Detail Produk',
-                style: GoogleFonts.poppins(
+                style: TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontFamily: 'InterSemiBold',
                 ),
               ),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.shopping_cart, color: Colors.white),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const CartPage()),
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),
+      ),
+
+      // ✅ Ini tempat yang benar untuk floatingActionButton
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Provider.of<CartProvider>(context, listen: false).addToCart(product);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Produk ditambahkan ke keranjang')),
+          );
+        },
+        backgroundColor: const Color(0xFF2C5364),
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.add_shopping_cart),
+        label: const Text('Tambah ke Keranjang'),
       ),
 
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Gambar produk, ukur gede biar puas liatnya
             Image.network(
               product.imageUrl,
               width: double.infinity,
               height: 250,
               fit: BoxFit.cover,
             ),
-
-            // Container isi konten
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Nama produk
                   Text(
                     product.title,
-                    style: GoogleFonts.poppins(
+                    style: const TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.w600,
+                      fontFamily: 'InterSemiBold',
                     ),
                   ),
                   const SizedBox(height: 8),
-
-                  // Harga
                   Text(
                     '\$${product.price.toStringAsFixed(2)}',
-                    style: GoogleFonts.poppins(
+                    style: const TextStyle(
                       fontSize: 18,
                       color: Colors.teal,
-                      fontWeight: FontWeight.bold,
+                      fontFamily: 'InterBold',
                     ),
                   ),
                   const SizedBox(height: 16),
-
-                  // Deskripsi lengkap
                   Text(
                     product.description,
-                    style: GoogleFonts.poppins(fontSize: 14),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'InterMedium',
+                    ),
                   ),
                 ],
               ),
